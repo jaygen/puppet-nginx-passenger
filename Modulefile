@@ -1,11 +1,11 @@
-name    'puppet-nginx'
+name    'nginx'
 version '0.0.1'
-source 'git://github.com/sgmac/puppet-nginx.git'
-author 'Sergio Galván <sergalma@gmail.com> '
+source 'git://github.com/kbatra/puppet-nginx-passenger.git'
+author 'jrabary@github'
 license 'MIT'
-summary 'Puppet module for Nginx'
+summary 'Puppet module for Nginx through Passenger'
 description 'Module for Nginx configuration'
-project_page 'https://github.com/sgmac/puppet-nginx'
+project_page 'https://github.com/kbatra/puppet-nginx-passenger'
 
 ## Add dependencies, if any:
-dependency 'blt04/puppet-rvm'
+dependency 'maestrodev/rvm', '>= 1.1.8'
