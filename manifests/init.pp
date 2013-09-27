@@ -42,6 +42,8 @@ class nginx (
     rvm_gem {
       "${ruby_version}/passenger":
         ensure => $passenger_version,
+		require => Rvm_system_ruby["${ruby_version}"],
+		ruby_version => $ruby_version;
     }
 
     exec { 'create container':
@@ -54,7 +56,8 @@ class nginx (
       command => "/bin/bash -l -i -c \"/usr/local/rvm/gems/${ruby_version}/bin/passenger-install-nginx-module ${options}\"",
       group   => 'root',
       unless  => "/usr/bin/test -d ${installdir}",
-      require => [ Package[$dependencies_passenger], Rvm_system_ruby[$ruby_version], Rvm_gem["${ruby_version}/passenger"]];
+      require => [ Package[$passenger_deps], Rvm_system_ruby[$ruby_version], Rvm_gem["${ruby_version}/passenger"]],
+	  environment => "HOME=/home/vagrant/",
     }
 
     file { 'nginx-config':
