@@ -24,7 +24,7 @@ class nginx (
   $passenger_version = '4.0.19',
   $logdir = '/var/log/nginx',
   $installdir = '/opt/nginx',
-  $www    = '/var/www' ) {
+  $www    = '/var/www') {
 
     $options = "--auto --auto-download  --prefix=${installdir}"
     $passenger_deps = [ 'libcurl4-openssl-dev' ]
@@ -47,7 +47,7 @@ class nginx (
     }
 
     exec { 'create container':
-      command => "/bin/mkdir ${www} && /bin/chown www-data:www-data ${www}",
+      command => "/bin/mkdir ${www} && /bin/chown www-data:www-data ${www} && /bin/chmod g+rws ${www}",
       unless  => "/usr/bin/test -d ${www}",
       before  => Exec['nginx-install']
     }
