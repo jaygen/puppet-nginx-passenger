@@ -33,7 +33,7 @@ A custom installation might look like this:
 
 ``` 
 node webserver { 
-    class { 'nginx':
+    class { 'nginx_passenger':
 	 $installdir => '/usr/local/nginx',
 	 $logdir     => '/usr/local/logs/nginx',
     }
@@ -55,6 +55,7 @@ The _rails_ attribute is optional and set to false by default. However, if you w
 ### MIT License 
 
 Copyright (C) 2012 by Sergio Galván
+
 Copyright (C) 2013 by Karan Batra
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
