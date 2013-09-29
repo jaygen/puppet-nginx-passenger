@@ -1,4 +1,4 @@
-# Class: nginx
+# Class: nginx_passenger
 #
 # This module installs Nginx and its default configuration using rvm as the provider.
 #
@@ -18,8 +18,8 @@
 # Requires:
 #    puppet-rvm
 #
-# Sample Usage:  include nginx
-class nginx (
+# Sample Usage:  include nginx_passenger
+class nginx_passenger (
   $ruby_version = 'ruby-2.0.0-p247',
   $passenger_version = '4.0.19',
   $logdir = '/var/log/nginx',
@@ -65,7 +65,7 @@ class nginx (
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => template('nginx/nginx.conf.erb'),
+      content => template('nginx_passenger/nginx.conf.erb'),
       require => Exec['nginx-install'],
     }
 
@@ -81,7 +81,7 @@ class nginx (
       owner     => 'root',
       group     => 'root',
       mode      => '0755',
-      content   => template('nginx/nginx.init.erb'),
+      content   => template('nginx_passenger/nginx.init.erb'),
       require   => File['nginx-config'],
       subscribe => File['nginx-config'],
     }

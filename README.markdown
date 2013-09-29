@@ -1,9 +1,11 @@
-## Puppet Nginx Module
+## Puppet Nginx Passenger Module
 
-This is a fork of [puppet-nginx](https://bitbucket.org/sgmac/puppet-nginx) to install nginx with
-passenger using default ruby version on debian wheezy or ubuntu quantal.
+This is a fork of [puppet-nginx-passenger](https://github.com/jrabary/puppet-nginx-passenger) to install nginx with
+passenger using default ruby version on debian wheezy or ubuntu precise.
 
-This module installs Nginx using [puppet-rvm](https://github.com/blt04/puppet-rvm). Please, read the documentation before you begin. This module has been tested on Debian Squeeze 6.0.5. For custom types, do not forget to enable pluginsync: 
+After inclusion, this module ensures that any user in group `www-data` is able to deploy through tools such as capistrano or mina, this of course as long as you have right ssh configuration (keys or forwarding) in place.
+
+This module installs Nginx using [puppet-rvm](https://github.com/maestrodev/puppet-rvm/). Please, read the documentation before you begin. This module has been tested on Ubuntu Precise (12.04). For custom types, do not forget to enable pluginsync: 
 ```
 [main]
 pluginsync = true
@@ -12,10 +14,10 @@ pluginsync = true
 
 ### Basic usage
 
-Install nginx with
+Install nginx_passenger with
 
 ```
-include nginx
+include nginx_passenger
 ```
 
 By default installs on _/opt/nginx_, there are some variables you might override
@@ -53,6 +55,7 @@ The _rails_ attribute is optional and set to false by default. However, if you w
 ### MIT License 
 
 Copyright (C) 2012 by Sergio Galván
+Copyright (C) 2013 by Karan Batra
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
