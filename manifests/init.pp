@@ -24,9 +24,24 @@ class nginx_passenger (
   $passenger_version = '4.0.19',
   $logdir = '/var/log/nginx',
   $installdir = '/opt/nginx',
-  $www    = '/var/www') {
+  $www    = '/var/www',
+  $nginx_source_dir = '',
+  $nginx_extra_configure_flags = '') {
 
-    $options = "--auto --auto-download  --prefix=${installdir}"
+    $base_options = "--auto --prefix=${installdir}"
+
+    if $nginx_source_dir {
+      if $nginx_extra_configure_flags {
+        $options = "${base_options} --nginx-source-dir ${nginx_source_dir} --extra-configure-flags ${nginx_extra_configure_flags}"
+      }
+      else {
+        $options = "${base_options} --nginx-source-dir ${nginx_source_dir}"
+      }
+    }
+    else {
+      $options = "${base_options} --auto-download"  
+    }
+
     $passenger_deps = [ 'libcurl4-openssl-dev' ]
 
     include rvm

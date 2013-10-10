@@ -1,0 +1,8 @@
+2013-10-09 - Version 0.1.1
+
+Summary:
+
+This release introduces custom installation of nginx using passenger. This would be useful if you wish to have additional nginx modules. The new class parameters for this are $nginx_source_dir and $nginx_extra_configure_flags. See README.markdown for additional details.
+
+Bugfixes:
+- Converts old puppet code to 3.0
