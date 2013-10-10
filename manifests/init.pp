@@ -32,7 +32,10 @@ class nginx_passenger (
 
     if $nginx_source_dir {
       if $nginx_extra_configure_flags {
-        $options = "${base_options} --nginx-source-dir ${nginx_source_dir} --extra-configure-flags ${nginx_extra_configure_flags}"
+        # Double escape with help of slashes outside the escaped quote since options
+        # get passed down to another set of escaped quotes
+        # and then to the shell
+        $options = "${base_options} --nginx-source-dir ${nginx_source_dir} --extra-configure-flags \\\"${nginx_extra_configure_flags}\\\""
       }
       else {
         $options = "${base_options} --nginx-source-dir ${nginx_source_dir}"

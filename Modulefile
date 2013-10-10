@@ -1,5 +1,5 @@
 name    'kbatra-nginx_passenger'
-version '0.1.1'
+version '0.1.2'
 source 'git://github.com/kbatra/puppet-nginx-passenger.git'
 author 'Karan Batra'
 license 'MIT'
