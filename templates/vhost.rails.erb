@@ -4,6 +4,7 @@ server {
       listen <%= @port %>;
       server_name <%= @host %>;
       root <%= @root %>/current/public;
+      rails_env <%= @rails_env %>;
 
       passenger_enabled on;
       <%= 'passenger_rolling_restarts on;' if scope['nginx_passenger::enterprise'] %>

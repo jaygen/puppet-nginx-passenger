@@ -29,7 +29,8 @@ define nginx_passenger::vhost(
   $port = '80',
   $root = "${nginx_passenger::www}/${title}",
   $makeroot = true,
-  $rails = false ){
+  $rails = false,
+  $rails_env = 'production' ){
   include nginx_passenger
 
   if $makeroot{
