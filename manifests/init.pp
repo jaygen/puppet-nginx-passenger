@@ -25,6 +25,9 @@ class nginx_passenger (
   $logdir = '/var/log/nginx',
   $installdir = '/opt/nginx',
   $www    = '/var/www',
+  $enterprise = false,
+  $phusion_order_ref = '',
+  $phusion_pass = '',
   $nginx_source_dir = '',
   $nginx_extra_configure_flags = '') {
 
@@ -42,7 +45,7 @@ class nginx_passenger (
       }
     }
     else {
-      $options = "${base_options} --auto-download"  
+      $options = "${base_options} --auto-download"
     }
 
     $passenger_deps = [ 'libcurl4-openssl-dev' ]
@@ -57,11 +60,24 @@ class nginx_passenger (
         default_use => true;
     }
 
-    rvm_gem {
-      "${ruby_version}/passenger":
+    if $enterprise {
+      $gem = "${ruby_version}/passenger-enterprise-server"
+      rvm_gem {
+        $gem:
         ensure => $passenger_version,
-		require => Rvm_system_ruby["${ruby_version}"],
-		ruby_version => $ruby_version;
+        source => "https://${phusion_order_ref}:${phusion_pass}@www.phusionpassenger.com/enterprise_gems/",
+        require => Rvm_system_ruby["${ruby_version}"],
+        ruby_version => $ruby_version;
+      }
+    }
+    else {
+      $gem = "${ruby_version}/passenger"
+      rvm_gem {
+        $gem:
+        ensure => $passenger_version,
+        require => Rvm_system_ruby["${ruby_version}"],
+        ruby_version => $ruby_version;
+      }
     }
 
     exec { 'create container':
@@ -74,7 +90,7 @@ class nginx_passenger (
       command => "/bin/bash -l -i -c \"/usr/local/rvm/gems/${ruby_version}/bin/passenger-install-nginx-module ${options}\"",
       group   => 'root',
       unless  => "/usr/bin/test -d ${installdir}",
-      require => [ Package[$passenger_deps], Rvm_system_ruby[$ruby_version], Rvm_gem["${ruby_version}/passenger"]],
+      require => [ Package[$passenger_deps], Rvm_system_ruby[$ruby_version], Rvm_gem[$gem]],
 	  environment => "HOME=/home/vagrant/",
     }
 

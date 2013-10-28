@@ -6,6 +6,7 @@ server {
       root <%= @root %>/current/public;
 
       passenger_enabled on;
+      <%= 'passenger_rolling_restarts on;' if scope['nginx_passenger::enterprise'] %>
       passenger_base_uri /;
 
       access_log <%= scope['nginx_passenger::logdir'] %>/<%= @host %>_access.log;

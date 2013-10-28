@@ -16,7 +16,7 @@ http {
     
     ### Passenger configuration 
 
-    passenger_root /usr/local/rvm/gems/<%= @ruby_version %>/gems/passenger-<%= @passenger_version %> ;
+    passenger_root /usr/local/rvm/gems/<%= @ruby_version %>/gems/passenger<%= '-enterprise-server' if @enterprise %>-<%= @passenger_version %> ;
     passenger_ruby /usr/local/rvm/wrappers/<%= @ruby_version %>/ruby;
 
     include       mime.types;

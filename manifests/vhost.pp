@@ -25,12 +25,11 @@
 #    sever_name =>  'blog.test.com'
 # }
 define nginx_passenger::vhost(
-  $host = $name,
+  $host = $title,
   $port = '80',
-  $root    = "/var/www/${host}",
+  $root = "${nginx_passenger::www}/${title}",
   $makeroot = true,
-  $rails = false,
-){
+  $rails = false ){
   include nginx_passenger
 
   if $makeroot{
